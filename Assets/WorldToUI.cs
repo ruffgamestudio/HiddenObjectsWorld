@@ -26,7 +26,7 @@ public class WorldToUI : MonoBehaviour
         currentObject.DOScale(currentObject.lossyScale + new Vector3((currentObject.lossyScale.x * 30) / 100, (currentObject.lossyScale.y * 30) / 100, (currentObject.lossyScale.z * 30) / 100), .2f).SetEase(Ease.OutQuad);
         currentObject.DOMoveY(currentObject.position.y + .9f, 0.2f).SetEase(Ease.OutQuad).OnComplete(() => currentObject.DOMove(targetUI.transform.position, .45f).SetEase(Ease.InQuad).OnComplete(() => {
             currentObject.GetComponent<SpriteRenderer>().enabled = false;
-            targetUI.DOScale(targetUI.lossyScale + new Vector3(.8f, .8f, .8f), 0.15f).SetLoops(2, LoopType.Yoyo);
+            targetUI.DOScale(targetUI.lossyScale + new Vector3(.8f, .8f, .8f), 0.15f).SetLoops(2, LoopType.Yoyo).OnComplete(()=>currentObject.GetComponent<TapAndCollectItems>().TheMomentBeforeDestroy());
             
         }));
         

@@ -66,36 +66,36 @@ namespace DigitalRubyShared
 
         private GameObject CreateAsteroid(float screenX, float screenY)
         {
-            GameObject o = GameObject.Instantiate(AsteroidPrefab) as GameObject;
-            o.name = "Asteroid";
-            SpriteRenderer r = o.GetComponent<SpriteRenderer>();
-            r.sprite = asteroids[UnityEngine.Random.Range(0, asteroids.Length - 1)];
+            //GameObject o = GameObject.Instantiate(AsteroidPrefab) as GameObject;
+            //o.name = "Asteroid";
+            //SpriteRenderer r = o.GetComponent<SpriteRenderer>();
+            //r.sprite = asteroids[UnityEngine.Random.Range(0, asteroids.Length - 1)];
 
-            if (screenX == float.MinValue || screenY == float.MinValue)
-            {
-                float x = UnityEngine.Random.Range(Camera.main.rect.min.x, Camera.main.rect.max.x);
-                float y = UnityEngine.Random.Range(Camera.main.rect.min.y, Camera.main.rect.max.y);
-                Vector3 pos = new Vector3(x, y, 0.0f);
-                pos = Camera.main.ViewportToWorldPoint(pos);
-                pos.z = o.transform.position.z;
-                o.transform.position = pos;
-            }
-            else
-            {
-                Vector3 pos = new Vector3(screenX, screenY, 0.0f);
-                pos = Camera.main.ScreenToWorldPoint(pos);
-                pos.z = o.transform.position.z;
-                o.transform.position = pos;
-            }
+            //if (screenX == float.MinValue || screenY == float.MinValue)
+            //{
+            //    float x = UnityEngine.Random.Range(Camera.main.rect.min.x, Camera.main.rect.max.x);
+            //    float y = UnityEngine.Random.Range(Camera.main.rect.min.y, Camera.main.rect.max.y);
+            //    Vector3 pos = new Vector3(x, y, 0.0f);
+            //    pos = Camera.main.ViewportToWorldPoint(pos);
+            //    pos.z = o.transform.position.z;
+            //    o.transform.position = pos;
+            //}
+            //else
+            //{
+            //    Vector3 pos = new Vector3(screenX, screenY, 0.0f);
+            //    pos = Camera.main.ScreenToWorldPoint(pos);
+            //    pos.z = o.transform.position.z;
+            //    o.transform.position = pos;
+            //}
 
-            o.GetComponent<Rigidbody2D>().angularVelocity = UnityEngine.Random.Range(0.0f, 30.0f);
-            Vector2 velocity = UnityEngine.Random.insideUnitCircle * UnityEngine.Random.Range(0, 30.0f);
-            o.GetComponent<Rigidbody2D>().velocity = velocity;
-            float scale = UnityEngine.Random.Range(1.0f, 4.0f);
-            o.transform.localScale = new Vector3(scale, scale, 1.0f);
-            o.GetComponent<Rigidbody2D>().mass *= (scale * scale);
+            //o.GetComponent<Rigidbody2D>().angularVelocity = UnityEngine.Random.Range(0.0f, 30.0f);
+            //Vector2 velocity = UnityEngine.Random.insideUnitCircle * UnityEngine.Random.Range(0, 30.0f);
+            //o.GetComponent<Rigidbody2D>().velocity = velocity;
+            //float scale = UnityEngine.Random.Range(1.0f, 4.0f);
+            //o.transform.localScale = new Vector3(scale, scale, 1.0f);
+            //o.GetComponent<Rigidbody2D>().mass *= (scale * scale);
 
-            return o;
+            return null;
         }
 
         private void RemoveAsteroids(float screenX, float screenY, float radius)
@@ -195,7 +195,7 @@ namespace DigitalRubyShared
             if (gesture.State == GestureRecognizerState.Ended)
             {
                 DebugText("Tapped at {0}, {1}", gesture.FocusX, gesture.FocusY);
-                CreateAsteroid(gesture.FocusX, gesture.FocusY);
+               // CreateAsteroid(gesture.FocusX, gesture.FocusY);
             }
         }
 
@@ -212,7 +212,7 @@ namespace DigitalRubyShared
             if (gesture.State == GestureRecognizerState.Ended)
             {
                 DebugText("Double tapped at {0}, {1}", gesture.FocusX, gesture.FocusY);
-                RemoveAsteroids(gesture.FocusX, gesture.FocusY, 16.0f);
+              //  RemoveAsteroids(gesture.FocusX, gesture.FocusY, 16.0f);
             }
         }
 
@@ -334,11 +334,11 @@ namespace DigitalRubyShared
 
         private void CreatePlatformSpecificViewTripleTapGesture()
         {
-            tripleTapGesture = new TapGestureRecognizer();
-            tripleTapGesture.StateUpdated += PlatformSpecificViewTapUpdated;
-            tripleTapGesture.NumberOfTapsRequired = 3;
-            tripleTapGesture.PlatformSpecificView = bottomLabel.gameObject;
-            FingersScript.Instance.AddGesture(tripleTapGesture);
+            //tripleTapGesture = new TapGestureRecognizer();
+            //tripleTapGesture.StateUpdated += PlatformSpecificViewTapUpdated;
+            //tripleTapGesture.NumberOfTapsRequired = 3;
+            ////tripleTapGesture.PlatformSpecificView = bottomLabel.gameObject;
+            //FingersScript.Instance.AddGesture(tripleTapGesture);
         }
 
         private static bool? CaptureGestureHandler(GameObject obj)
@@ -400,7 +400,7 @@ namespace DigitalRubyShared
             if (Time.timeSinceLevelLoad > nextAsteroid)
             {
                 nextAsteroid = Time.timeSinceLevelLoad + UnityEngine.Random.Range(1.0f, 4.0f);
-                CreateAsteroid(float.MinValue, float.MinValue);
+                //CreateAsteroid(float.MinValue, float.MinValue);
             }
 
             int touchCount = FingersScript.Instance.TouchCount;
@@ -421,10 +421,7 @@ namespace DigitalRubyShared
                 touchIds += ":" + t.Id + ":";
             }
 
-            dpiLabel.text = "Dpi: " + DeviceInfo.PixelsPerInch + System.Environment.NewLine +
-                "Width: " + Screen.width + System.Environment.NewLine +
-                "Height: " + Screen.height + System.Environment.NewLine +
-                "Touches: " + FingersScript.Instance.CurrentTouches.Count + " (" + gestureTouchCount + "), ids" + touchIds + System.Environment.NewLine;
+          //
         }
 
         // draw that last few swipes

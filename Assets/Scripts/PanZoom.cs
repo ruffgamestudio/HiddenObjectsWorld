@@ -26,6 +26,8 @@ public class PanZoom : MonoBehaviour
     public bool crossCheck;
     public bool isMouseOverUI;
 
+    private bool zoom;
+
     void Awake()
     {
         _camera = GetComponent<Camera>();
@@ -41,10 +43,15 @@ public class PanZoom : MonoBehaviour
     }
     void Move()
     {
-        if (!isMouseOverUI && Input.touchCount==0)
+        if (Input.touchCount == 0)
+        {
+            zoom = false;
+        }
+            if (!isMouseOverUI )
         {
             if (Input.touchCount == 2)
             {
+                zoom = true;
                 Touch touchZero = Input.GetTouch(0);
                 Touch touchOne = Input.GetTouch(1);
 
@@ -58,14 +65,14 @@ public class PanZoom : MonoBehaviour
 
                 Zoom(difference * .005f);
             }
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 _touchStart = _camera.ScreenToWorldPoint(Input.mousePosition);
                 crossCheck = false;
             }
-            else if (Input.GetMouseButton(0))
+            else if (Input.GetKey(KeyCode.Mouse0))
             {
-                if (Input.touchCount==2)
+                if (Input.touchCount==2||zoom)
                     return;
                 _direction = _touchStart - _camera.ScreenToWorldPoint(Input.mousePosition);
                 _direction.z = 0;
