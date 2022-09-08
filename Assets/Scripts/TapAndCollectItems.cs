@@ -15,109 +15,12 @@ public class TapAndCollectItems : MonoBehaviour, IPointerDownHandler
     }
     public void OnPointerDown(PointerEventData eventData)
     {
-        switch (gameObject.name)
-        {
-            case "Donatello":
-                GameManager.Instance.totalItemCount++;
-                GameManager.Instance.donatelloCount++;
-                gameObject.SetActive(false);
-                _popUpItems.SetActive(true);
-                break;
-            case "Man":
-                GameManager.Instance.totalItemCount++;
-                GameManager.Instance.manCount++;
-                gameObject.SetActive(false);
-                _popUpItems.SetActive(true);
-                break;
-            case "PizzaSlice":
-                GameManager.Instance.totalItemCount++;
-                GameManager.Instance.pizzaSliceCount++;
-                gameObject.SetActive(false);
-                _popUpItems.SetActive(true);
-                break;
-            case "Michi":
-                GameManager.Instance.totalItemCount++;
-                GameManager.Instance.michiCount++;
-                gameObject.SetActive(false);
-                _popUpItems.SetActive(true);
-                break;
-            case "Sunflower":
-                GameManager.Instance.totalItemCount++;
-                GameManager.Instance.sunflowerCount++;
-                gameObject.SetActive(false);
-                _popUpItems.SetActive(true);
-                break;
-            case "Crate":
-                GameManager.Instance.totalItemCount++;
-                GameManager.Instance.crateCount++;
-                gameObject.SetActive(false);
-                _popUpItems.SetActive(true);
-                break;
-            case "Leonardo":
-                GameManager.Instance.totalItemCount++;
-                GameManager.Instance.leonardoCount++;
-                gameObject.SetActive(false);
-                _popUpItems.SetActive(true);
-                break;
-            case "Raphael":
-                GameManager.Instance.totalItemCount++;
-                GameManager.Instance.raphaelCount++;
-                gameObject.SetActive(false);
-                _popUpItems.SetActive(true);
-                break;
-            case "Pizza":
-                GameManager.Instance.totalItemCount++;
-                GameManager.Instance.pizzaCount++;
-                gameObject.SetActive(false);
-                _popUpItems.SetActive(true);
-                break;
-            case "Splinter":
-                GameManager.Instance.totalItemCount++;
-                GameManager.Instance.splinterCount++;
-                gameObject.SetActive(false);
-                _popUpItems.SetActive(true);
-                break;
-            case "Taco":
-                GameManager.Instance.totalItemCount++;
-                GameManager.Instance.tacoCount++;
-                gameObject.SetActive(false);
-                _popUpItems.SetActive(true);
-                break;
-            case "Helmet":
-                GameManager.Instance.totalItemCount++;
-                GameManager.Instance.helmetCount++;
-                gameObject.SetActive(false);
-                _popUpItems.SetActive(true);
-                break;
-            case "Hamburger":
-                GameManager.Instance.totalItemCount++;
-                GameManager.Instance.hamburgerCount++;
-                gameObject.SetActive(false);
-                _popUpItems.SetActive(true);
-                break;
-        }
-
+        GameManager.Instance.CollectableClicked(gameObject.tag);
+        gameObject.SetActive(false);
     }
 
-
-    private void Update()
-    {
-        //if (Input.GetMouseButtonDown(0))
-        //    SendRayToSelectObjects();
-
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    for (int i = 0; i < _popUpItems.Length; i++)
-        //    {
-        //        if (_popUpItems[i].activeInHierarchy)
-        //        {
-        //            _popUpItems[i].SetActive(false);
-        //        }
-        //    }
-        //}
-    }
-
-
+}
+   
     //void SendRayToSelectObjects()
     //{
     //    StartCoroutine(nameof(DeactivateItems));
@@ -228,4 +131,4 @@ public class TapAndCollectItems : MonoBehaviour, IPointerDownHandler
     //    }
     //}
 
-}
+

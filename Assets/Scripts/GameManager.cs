@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     private Animator _cloudsAnimator;
 
 
-    [SerializeField] private Image _down,_up, _progressBar;
+    [SerializeField] private Image _down, _up, _progressBar;
     [SerializeField] private Image[] _ticks;
 
     [SerializeField] private TextMeshProUGUI _progressBarText;
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public float tacoCount;
     [HideInInspector] public float helmetCount;
     [HideInInspector] public float hamburgerCount;
-    private float _numberOfItems=19;
+    private float _numberOfItems = 19;
 
 
     [SerializeField] private Transform[] _itemsParents;
@@ -48,40 +48,47 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject _newAreaPanel;
     [SerializeField] private GameObject _clouds;
+    [SerializeField] private GameObject[] _items;
+    [SerializeField] private GameObject _magnifyingGlassCirclePrefab;
+    private GameObject _circleInstantiated;
+
 
 
     private bool _newAreaCheck;
-    
+
 
     void Awake()
     {
-         Instance = this;
-        _panelButtonAnimator=GameObject.FindGameObjectWithTag("ItemPanel").GetComponent<Animator>();
+        Instance = this;
+        _panelButtonAnimator = GameObject.FindGameObjectWithTag("ItemPanel").GetComponent<Animator>();
         _tapAndCollectItems = FindObjectOfType<TapAndCollectItems>();
-        _panZoom=GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PanZoom>();
-        _camera=GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        _cloudsAnimator=_clouds.GetComponent<Animator>();
-
+        _panZoom = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PanZoom>();
+        _camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        _cloudsAnimator = _clouds.GetComponent<Animator>();
     }
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
             ProgressCircle();
-            PopUP();
+            if (_circleInstantiated!=null)
+            {
+                _circleInstantiated.SetActive(false);
+
+            }
         }
-         ItemsNumberUI();
+        ItemsNumberUI();
     }
 
     void ProgressCircle()
     {
-        float itemCount = totalItemCount /_numberOfItems;
+        float itemCount = totalItemCount / _numberOfItems;
         _progressBar.fillAmount = itemCount;
-        _progressBarText.text=totalItemCount.ToString()+"/"+_numberOfItems;
-        if (totalItemCount==_numberOfItems && !_newAreaCheck)
+        _progressBarText.text = totalItemCount.ToString() + "/" + _numberOfItems;
+        if (totalItemCount == _numberOfItems && !_newAreaCheck)
         {
             NextArea();
-            _newAreaCheck=true;
+            _newAreaCheck = true;
         }
     }
 
@@ -93,7 +100,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void CloudsAndCameraMove()
-    {        
+    {
         StartCoroutine(nameof(CloudsAndCameraMoveNumerator));
     }
     IEnumerator CloudsAndCameraMoveNumerator()
@@ -171,6 +178,64 @@ public class GameManager : MonoBehaviour
             _itemsParents[index].transform.SetParent(_content);
         }
     }
+    public void CollectableClicked(string tag)
+    {
+        switch (tag)
+        {
+            case "Donatello":
+                totalItemCount++;
+                donatelloCount++;
+                break;
+            case "Man":
+                totalItemCount++;
+                manCount++;
+                break;
+            case "PizzaSlice":
+                totalItemCount++;
+                pizzaSliceCount++;
+                break;
+            case "Michi":
+                totalItemCount++;
+                michiCount++;
+                break;
+            case "Sunflower":
+                totalItemCount++;
+                sunflowerCount++;
+                break;
+            case "Crate":
+                totalItemCount++;
+                crateCount++;
+                break;
+            case "Leonardo":
+                totalItemCount++;
+                leonardoCount++;
+                break;
+            case "Raphael":
+                totalItemCount++;
+                raphaelCount++;
+                break;
+            case "Pizza":
+                totalItemCount++;
+                pizzaCount++;
+                break;
+            case "Splinter":
+                totalItemCount++;
+                splinterCount++;
+                break;
+            case "Taco":
+                totalItemCount++;
+                tacoCount++;
+                break;
+            case "Helmet":
+                totalItemCount++;
+                helmetCount++;
+                break;
+            case "Hamburger":
+                totalItemCount++;
+                hamburgerCount++;
+                break;
+        }
+    }
     public void ItemPanelButton()
     {
         _panelButtonAnimator.SetTrigger("Down");
@@ -186,12 +251,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void PopUP()
+    public void MagnifyingGlassButton()
     {
-        foreach (var item in GameObject.FindGameObjectsWithTag("Popup"))
+        int random›tem = Random.Range(0, 19);
+        for (int i = 0; i < Mathf.Infinity; i++)
         {
-            item.SetActive(false);
-            print("popup");    
+            if (!_items[random›tem].activeInHierarchy)
+            {
+                random›tem = Random.Range(0, 19);
+            }
+            else
+            {
+                break;
+            }
         }
+        _camera.transform.DOMove(_items[random›tem].transform.position + new Vector3(0, 0, -11), 1);
+        _camera.orthographicSize = 2;
+        _circleInstantiated = Instantiate(_magnifyingGlassCirclePrefab, _items[random›tem].transform.position,Quaternion.identity);
     }
 }

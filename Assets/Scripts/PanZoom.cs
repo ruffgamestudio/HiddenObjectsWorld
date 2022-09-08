@@ -24,29 +24,24 @@ public class PanZoom : MonoBehaviour
     private SpriteRenderer _cityBG;
 
     public bool crossCheck;
-    private bool _isMouseOverUI;
+    public bool isMouseOverUI;
 
     void Awake()
     {
         _camera = GetComponent<Camera>();
     }
 
-    void Update()
+    void LateUpdate()
     {
         _mapMinX = _minXValue;
         _mapMaxX = maxXValue;
         _mapMinY = _minYValue;
         _mapMaxY = _maxYValue;
         Move();
-        IsPointerOverUI();
-        if (Input.GetMouseButtonUp(0))
-        {
-            _isMouseOverUI = false;
-        }
     }
     void Move()
     {
-        if (!_isMouseOverUI)
+        if (!isMouseOverUI)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -84,7 +79,7 @@ public class PanZoom : MonoBehaviour
 
     void Zoom(float increment)
     {
-        _camera.orthographicSize = Mathf.Clamp(_camera.orthographicSize - increment, _zoomOutMin, _zoomOutMax);
+        _camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize,Mathf.Clamp(_camera.orthographicSize - increment, _zoomOutMin, _zoomOutMax),.05f);
         _camera.transform.position = ClampCamera(_camera.transform.position);
     }
 
@@ -104,29 +99,5 @@ public class PanZoom : MonoBehaviour
         return new Vector3(newX, newY, targetPos.z);
     }
 
-    void IsPointerOverUI()
-    {
-        if (EventSystem.current.IsPointerOverGameObject())
-        {
-            if (EventSystem.current.currentSelectedGameObject != null)
-            {
-                if (EventSystem.current.currentSelectedGameObject.GetComponent<CanvasRenderer>() != null)
-                {
-                    _isMouseOverUI = true;
-                }
-                else
-                {
-                    _isMouseOverUI = false;
-                }
-            }
-            else
-            {
-                _isMouseOverUI = false;
-            }
-        }
-        else
-        {
-            _isMouseOverUI = false;
-        }
-    }
+
 }

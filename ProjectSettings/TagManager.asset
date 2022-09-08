@@ -20,6 +20,7 @@ TagManager:
   - Hamburger
   - BG
   - Clouds
+  - Canvas
   layers:
   - Default
   - TransparentFX
