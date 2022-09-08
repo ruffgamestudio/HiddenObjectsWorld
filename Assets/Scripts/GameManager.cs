@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     private Animator _cloudsAnimator;
 
 
+    public GameObject trailVFX;
+
     [SerializeField] private Image _down, _up, _progressBar;
     [SerializeField] private Image[] _ticks;
 
@@ -77,7 +79,7 @@ public class GameManager : MonoBehaviour
 
             }
         }
-        ItemsNumberUI();
+      
     }
 
     void ProgressCircle()
@@ -112,72 +114,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3.3f);
         _clouds.SetActive(false);
     }
-    void ItemsNumberUI()
-    {
-        if (donatelloCount > 0)
-        {
-            SelectedItems(donatelloCount, 0, 1);
-        }
-        if (manCount > 0)
-        {
-            SelectedItems(manCount, 1, 2);
-        }
-        if (pizzaSliceCount > 0)
-        {
-            SelectedItems(pizzaSliceCount, 2, 1);
-        }
-        if (michiCount > 0)
-        {
-            SelectedItems(michiCount, 3, 2);
-        }
-        if (sunflowerCount > 0)
-        {
-            SelectedItems(sunflowerCount, 4, 2);
-        }
-        if (crateCount > 0)
-        {
-            SelectedItems(crateCount, 5, 1);
-        }
-        if (leonardoCount > 0)
-        {
-            SelectedItems(leonardoCount, 6, 1);
-        }
-        if (raphaelCount > 0)
-        {
-            SelectedItems(raphaelCount, 7, 1);
-        }
-        if (pizzaCount > 0)
-        {
-            SelectedItems(pizzaCount, 8, 1);
-        }
-        if (splinterCount > 0)
-        {
-            SelectedItems(splinterCount, 9, 2);
-        }
-        if (tacoCount > 0)
-        {
-            SelectedItems(tacoCount, 10, 2);
-        }
-        if (helmetCount > 0)
-        {
-            SelectedItems(helmetCount, 11, 1);
-        }
-        if (hamburgerCount > 0)
-        {
-            SelectedItems(hamburgerCount, 12, 2);
-        }
-    }
-    void SelectedItems(float itemCount, int index, float count)
-    {
-        _itemTexts[index].text = itemCount.ToString() + "/" + count;
-        if (itemCount == count)
-        {
-            _itemTexts[index].enabled = false;
-            _ticks[index].gameObject.SetActive(true);
-            _itemsParents[index].transform.SetParent(null);
-            _itemsParents[index].transform.SetParent(_content);
-        }
-    }
+
     public void CollectableClicked(string tag)
     {
         switch (tag)
