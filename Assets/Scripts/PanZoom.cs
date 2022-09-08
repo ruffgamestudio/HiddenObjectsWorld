@@ -41,23 +41,8 @@ public class PanZoom : MonoBehaviour
     }
     void Move()
     {
-        if (!isMouseOverUI)
+        if (!isMouseOverUI && Input.touchCount==0)
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                _touchStart = _camera.ScreenToWorldPoint(Input.mousePosition);
-                crossCheck = false;
-            }
-            else if (Input.GetMouseButton(0))
-            {
-                _direction = _touchStart - _camera.ScreenToWorldPoint(Input.mousePosition);
-                _direction.z = 0;
-                transform.DOMove(ClampCamera(_camera.transform.position + _direction), .25f);
-                if (_direction.magnitude > .005f)
-                {
-                    crossCheck = true;
-                }
-            }
             if (Input.touchCount == 2)
             {
                 Touch touchZero = Input.GetTouch(0);
@@ -73,13 +58,31 @@ public class PanZoom : MonoBehaviour
 
                 Zoom(difference * .005f);
             }
+            if (Input.GetMouseButtonDown(0))
+            {
+                _touchStart = _camera.ScreenToWorldPoint(Input.mousePosition);
+                crossCheck = false;
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                if (Input.touchCount==2)
+                    return;
+                _direction = _touchStart - _camera.ScreenToWorldPoint(Input.mousePosition);
+                _direction.z = 0;
+                transform.DOMove(ClampCamera(_camera.transform.position + _direction), .25f);
+                if (_direction.magnitude > .005f)
+                {
+                    crossCheck = true;
+                }          
+            }
+
         }
        
     }
 
     void Zoom(float increment)
     {
-        _camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize,Mathf.Clamp(_camera.orthographicSize - increment, _zoomOutMin, _zoomOutMax),.05f);
+        _camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize,Mathf.Clamp(_camera.orthographicSize - increment, _zoomOutMin, _zoomOutMax),.8f);
         _camera.transform.position = ClampCamera(_camera.transform.position);
     }
 
