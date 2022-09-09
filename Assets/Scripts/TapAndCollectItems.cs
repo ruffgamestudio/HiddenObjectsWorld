@@ -40,11 +40,6 @@ public class TapAndCollectItems : MonoBehaviour, IPointerDownHandler
         targetUI.totalCount = totalCount;
         targetUI.transform.parent.GetChild(1).GetComponent<TextMeshProUGUI>().text = targetUI.count + "/" + targetUI.totalCount;
     }
-
-    private void Start()
-    {
-        
-    }
     public void OnPointerDown(PointerEventData eventData)
     {
         GameObject VFX=Instantiate(GameManager.Instance.trailVFX, transform);
@@ -62,7 +57,7 @@ public class TapAndCollectItems : MonoBehaviour, IPointerDownHandler
         int count = GameObject.FindGameObjectsWithTag(gameObject.tag).Length;
         if (count == 2)
         {
-            Debug.Log("yeyyyy");
+            
         }
         gameObject.SetActive(false);
     }
