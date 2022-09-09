@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     private Animator _panelButtonAnimator;
     private Animator _cloudsAnimator;
 
-
+   
     public GameObject trailVFX;
 
     [SerializeField] private Image _down, _up, _progressBar;
@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] _items;
     [SerializeField] private GameObject _magnifyingGlassCirclePrefab;
     private GameObject _circleInstantiated;
+   [SerializeField] private GameObject _popUp›tem;
 
 
 
@@ -68,15 +69,23 @@ public class GameManager : MonoBehaviour
         _camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         _cloudsAnimator = _clouds.GetComponent<Animator>();
     }
+
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
+            _popUp›tem = GameObject.FindGameObjectWithTag("PopUp");
+
             ProgressCircle();
             if (_circleInstantiated!=null)
             {
                 _circleInstantiated.SetActive(false);
+            }
 
+            if (_popUp›tem.activeInHierarchy)
+            {
+                Destroy(_popUp›tem);
             }
         }
       
@@ -202,7 +211,7 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
-        _camera.transform.DOMove(_items[random›tem].transform.position + new Vector3(0, 0, -11), 1);
+        _camera.transform.DOMove(_items[random›tem].transform.position + new Vector3(0, 0, -11), 2);
         _camera.orthographicSize = 2;
         _circleInstantiated = Instantiate(_magnifyingGlassCirclePrefab, _items[random›tem].transform.position,Quaternion.identity);
     }

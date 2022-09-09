@@ -21,6 +21,7 @@ TagManager:
   - BG
   - Clouds
   - Canvas
+  - PopUp
   layers:
   - Default
   - TransparentFX

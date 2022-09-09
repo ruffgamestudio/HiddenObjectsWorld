@@ -9,14 +9,20 @@ public class TapAndCollectItems : MonoBehaviour, IPointerDownHandler
 {
 
     private Camera _camera;
-    [SerializeField] private TextMeshProUGUI _popUpItems;
+    [SerializeField] private GameObject _popUpItems;
 
     private TargetUI targetUI;
 
     private int totalCount;
 
+    private Vector3 _firstPos;
+
+    private Sprite _sprite;
+
     private void Awake()
     {
+        _sprite = gameObject.GetComponent<SpriteRenderer>().sprite;        
+        _firstPos = this.transform.position;
         _camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
         foreach (var item in GameObject.FindGameObjectsWithTag(gameObject.tag))
@@ -34,12 +40,16 @@ public class TapAndCollectItems : MonoBehaviour, IPointerDownHandler
         targetUI.totalCount = totalCount;
         targetUI.transform.parent.GetChild(1).GetComponent<TextMeshProUGUI>().text = targetUI.count + "/" + targetUI.totalCount;
     }
+
+    private void Start()
+    {
+        
+    }
     public void OnPointerDown(PointerEventData eventData)
     {
         GameObject VFX=Instantiate(GameManager.Instance.trailVFX, transform);
         VFX.transform.localPosition = Vector3.zero;
         GameManager.Instance.CollectableClicked(gameObject.tag);
-        
         WorldToUI.JumpToUI(transform, targetUI.GetComponent<RectTransform>());
       
     }
@@ -55,6 +65,15 @@ public class TapAndCollectItems : MonoBehaviour, IPointerDownHandler
             Debug.Log("yeyyyy");
         }
         gameObject.SetActive(false);
+    }
+
+    public void PopUp()
+    {
+        GameObject obj = Instantiate(_popUpItems);
+        obj.transform.position = _firstPos+new Vector3(0,.5f,0);
+        obj.transform.GetChild(0).transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = _sprite;
+        obj.transform.GetChild(1).GetComponent<TextMeshPro>().text = gameObject.tag;
+        obj.transform.GetChild(2).GetComponent<TextMeshPro>().text = (targetUI.count+1) + "/" + (targetUI.totalCount);
     }
 
 
