@@ -65,6 +65,7 @@ public class TapAndCollectItems : MonoBehaviour, IPointerDownHandler
     public void PopUp()
     {
         GameObject obj = Instantiate(_popUpItems);
+        GameManager.Instance._popUpItem = obj;
         obj.transform.position = _firstPos+new Vector3(0,.5f,0);
         obj.transform.GetChild(0).transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = _sprite;
         obj.transform.GetChild(1).GetComponent<TextMeshPro>().text = gameObject.tag;

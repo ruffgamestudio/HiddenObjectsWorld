@@ -53,7 +53,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] _items;
     [SerializeField] private GameObject _magnifyingGlassCirclePrefab;
     private GameObject _circleInstantiated;
-   [SerializeField] private GameObject _popUp›tem;
+
+
+   public GameObject _popUpItem;
 
 
 
@@ -75,17 +77,18 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            _popUp›tem = GameObject.FindGameObjectWithTag("PopUp");
+           
 
-            ProgressCircle();
             if (_circleInstantiated!=null)
             {
                 _circleInstantiated.SetActive(false);
             }
 
-            if (_popUp›tem.activeInHierarchy)
+            if (_popUpItem!=null)
             {
-                Destroy(_popUp›tem);
+
+                ProgressCircle();
+                Destroy(_popUpItem);
             }
         }
       
