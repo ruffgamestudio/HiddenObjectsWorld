@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     private Animator _panelButtonAnimator;
     private Animator _cloudsAnimator;
 
+    public RectTransform contentBar;
    
     public GameObject trailVFX;
 

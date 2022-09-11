@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using TMPro;
+using DG.Tweening;
 
 public class TapAndCollectItems : MonoBehaviour, IPointerDownHandler
 {
@@ -42,11 +43,28 @@ public class TapAndCollectItems : MonoBehaviour, IPointerDownHandler
     }
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (!RendererExtensions.IsFullyVisibleFrom(targetUI.GetComponent<RectTransform>(), Camera.main))
+        {
+            SnapToScroll.SnapToScrollBar(targetUI.GetComponent<RectTransform>());
+        }
+   
+        //if (targetUI.transform.parent.GetSiblingIndex() <= 4)
+        //{
+        //    GameManager.Instance.contentBar.DOAnchorPosX(1097,0.2f);
+        //}
+        //else if (targetUI.transform.parent.GetSiblingIndex() > 4&& targetUI.transform.parent.GetSiblingIndex() <= 9)
+        //{
+        //    GameManager.Instance.contentBar.DOAnchorPosX(307, 0.2f);
+        //}
+        //else if (targetUI.transform.parent.GetSiblingIndex() > 9 && targetUI.transform.parent.GetSiblingIndex() <= 14)
+        //{
+        //    GameManager.Instance.contentBar.DOAnchorPosX(-195, 0.2f);
+        //}
         GameObject VFX=Instantiate(GameManager.Instance.trailVFX, transform);
         VFX.transform.localPosition = Vector3.zero;
         GameManager.Instance.CollectableClicked(gameObject.tag);
         WorldToUI.JumpToUI(transform, targetUI.GetComponent<RectTransform>());
-      
+        
     }
 
     public void TheMomentBeforeDestroy()
