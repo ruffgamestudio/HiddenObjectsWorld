@@ -5,23 +5,45 @@ TagManager:
   serializedVersion: 2
   tags:
   - ItemPanel
-  - Donatello
-  - Man
-  - PizzaSlice
-  - Michi
-  - Sunflower
-  - Crate
-  - Raphael
-  - Taco
-  - Leonardo
-  - Splinter
-  - Pizza
-  - Helmet
-  - Hamburger
   - BG
   - Clouds
   - Canvas
   - PopUp
+  - Level1/Volleyball
+  - Level1/HeadPhone
+  - Level1/MagnifyingGlass
+  - Level1/Carrot
+  - Level1/Binoculars
+  - Level1/Torch
+  - Level1/Key
+  - Level1/Lock
+  - Level1/Papers
+  - Level1/Pipo
+  - Level1/Hat
+  - Level1/Handcuff
+  - Level1/Camera
+  - Level1/CameraTape
+  - Level1/WalkieTalkie
+  - Level1/Kite
+  - Level1/WhitePapers
+  - Level1/Glove
+  - Level1/Watch
+  - Level1/Note
+  - Level1/Donut
+  - Level1/WaterBottle
+  - Level1/Joystick
+  - Level1/Icecream
+  - Level1/Hamburger
+  - Level1/Pizza
+  - Level1/WaterGun
+  - Level1/CuteBee
+  - Level1/WatermelonSlice
+  - Level1/Umbrella
+  - Level1/Gun
+  - Level1/Knife
+  - Hamburger
+  - Level1/OrangeBike
+  - Level1/Glasses
   layers:
   - Default
   - TransparentFX

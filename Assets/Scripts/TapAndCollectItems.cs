@@ -20,6 +20,8 @@ public class TapAndCollectItems : MonoBehaviour, IPointerDownHandler
 
     private Sprite _sprite;
 
+    private PanZoom _panZoom;
+
     private void Awake()
     {
         _sprite = gameObject.GetComponent<SpriteRenderer>().sprite;        
@@ -36,7 +38,7 @@ public class TapAndCollectItems : MonoBehaviour, IPointerDownHandler
             {
                 totalCount++;
             }
-
+            _panZoom = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PanZoom>();
         }
         targetUI.totalCount = totalCount;
         targetUI.transform.parent.GetChild(1).GetComponent<TextMeshProUGUI>().text = targetUI.count + "/" + targetUI.totalCount;
@@ -64,7 +66,6 @@ public class TapAndCollectItems : MonoBehaviour, IPointerDownHandler
         VFX.transform.localPosition = Vector3.zero;
         GameManager.Instance.CollectableClicked(gameObject.tag);
         WorldToUI.JumpToUI(transform, targetUI.GetComponent<RectTransform>());
-        
     }
 
     public void TheMomentBeforeDestroy()
@@ -88,6 +89,7 @@ public class TapAndCollectItems : MonoBehaviour, IPointerDownHandler
         obj.transform.GetChild(0).transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = _sprite;
         obj.transform.GetChild(1).GetComponent<TextMeshPro>().text = gameObject.tag;
         obj.transform.GetChild(2).GetComponent<TextMeshPro>().text = (targetUI.count+1) + "/" + (targetUI.totalCount);
+        _panZoom.crossCheck = true;
     }
 
 

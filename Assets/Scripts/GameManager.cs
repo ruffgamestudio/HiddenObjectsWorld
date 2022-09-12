@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public float tacoCount;
     [HideInInspector] public float helmetCount;
     [HideInInspector] public float hamburgerCount;
-    private float _numberOfItems = 19;
+    private float _numberOfItems = 34;
 
 
     [SerializeField] private Transform[] _itemsParents;
@@ -77,17 +77,14 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
-        {
-           
-
+        {        
             if (_circleInstantiated!=null)
             {
                 _circleInstantiated.SetActive(false);
             }
 
-            if (_popUpItem!=null)
+            if (_popUpItem != null)
             {
-
                 ProgressCircle();
                 Destroy(_popUpItem);
             }
@@ -130,61 +127,7 @@ public class GameManager : MonoBehaviour
 
     public void CollectableClicked(string tag)
     {
-        switch (tag)
-        {
-            case "Donatello":
-                totalItemCount++;
-                donatelloCount++;
-                break;
-            case "Man":
-                totalItemCount++;
-                manCount++;
-                break;
-            case "PizzaSlice":
-                totalItemCount++;
-                pizzaSliceCount++;
-                break;
-            case "Michi":
-                totalItemCount++;
-                michiCount++;
-                break;
-            case "Sunflower":
-                totalItemCount++;
-                sunflowerCount++;
-                break;
-            case "Crate":
-                totalItemCount++;
-                crateCount++;
-                break;
-            case "Leonardo":
-                totalItemCount++;
-                leonardoCount++;
-                break;
-            case "Raphael":
-                totalItemCount++;
-                raphaelCount++;
-                break;
-            case "Pizza":
-                totalItemCount++;
-                pizzaCount++;
-                break;
-            case "Splinter":
-                totalItemCount++;
-                splinterCount++;
-                break;
-            case "Taco":
-                totalItemCount++;
-                tacoCount++;
-                break;
-            case "Helmet":
-                totalItemCount++;
-                helmetCount++;
-                break;
-            case "Hamburger":
-                totalItemCount++;
-                hamburgerCount++;
-                break;
-        }
+        totalItemCount++;       
     }
     public void ItemPanelButton()
     {
@@ -203,7 +146,7 @@ public class GameManager : MonoBehaviour
 
     public void MagnifyingGlassButton()
     {
-        int random›tem = Random.Range(0, 19);
+        int random›tem = Random.Range(0, 32);
         for (int i = 0; i < Mathf.Infinity; i++)
         {
             if (!_items[random›tem].activeInHierarchy)
